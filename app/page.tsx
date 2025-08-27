@@ -4,17 +4,44 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { SignInButton } from "@clerk/nextjs";
-import Prism from "@/components/custom/react-bits/Prism";
-import Waves from "@/components/custom/react-bits/Waves";
-import GridDistortion from "@/components/custom/react-bits/grid-distortion";
-import Navbar from "@/components/Navbar";
 import Aurora from "@/components/custom/react-bits/Aurora";
+import Dock from "@/components/custom/react-bits/Dock/Dock";
+import { Home as HomeIcon, Archive, User, Settings } from "lucide-react";
+import ProductDemo from "@/components/pages/landing-page/ProductDemo";
 
 export default function Home() {
+  const items = [
+    {
+      icon: <HomeIcon size={18} />,
+      label: "Home",
+      onClick: () => alert("Home!"),
+    },
+    {
+      icon: <Archive size={18} />,
+      label: "Archive",
+      onClick: () => alert("Archive!"),
+    },
+    {
+      icon: <User size={18} />,
+      label: "Profile",
+      onClick: () => alert("Profile!"),
+    },
+    {
+      icon: <Settings size={18} />,
+      label: "Settings",
+      onClick: () => alert("Settings!"),
+    },
+  ];
+
   return (
-    <div>
-      <Navbar />
-      <section className="relative h-[91vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fcf3f7] via-white to-[#fae9f2]">
+    <div className="relative min-h-screen">
+      <Dock
+        items={items}
+        panelHeight={68}
+        baseItemSize={50}
+        magnification={70}
+      />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fcf3f7] via-white to-[#fae9f2]">
         {/* Subtle Grid Background */}
         <div className="w-full h-screen absolute">
           <Aurora
@@ -62,18 +89,22 @@ export default function Home() {
             transition={{ duration: 1, delay: 1 }}
             className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
           >
+            {/* Primary Aurora Button */}
             <Button
               size="lg"
-              className="bg-gradient-to-r from-[#db5992] to-[#c83a71] hover:opacity-90 text-white text-md px-8 py-6 rounded-2xl shadow-lg"
+              className="bg-gradient-to-r from-[rgb(0,255,191)] via-[rgb(0,128,255)] to-[rgb(134,140,255)] 
+               hover:opacity-90 text-white text-md px-8 py-6 rounded-2xl
+               shadow-[0_0_20px_rgba(0,128,255,0.5)]"
             >
               Get Started – It’s Free
             </Button>
 
+            {/* Secondary Outline Button */}
             <SignInButton mode="modal">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-zinc-300 text-zinc-700 hover:bg-zinc-100 text-md px-8 py-6 rounded-2xl"
+                className="border-[rgb(0,128,255)] text-[rgb(0,128,255)] bg-transparent hover:bg-[rgb(0,128,255)] hover:text-white text-md px-8 py-6 rounded-2xl transition-colors"
               >
                 Sign In
               </Button>
@@ -81,6 +112,8 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      <ProductDemo />
     </div>
   );
 }
