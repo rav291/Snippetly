@@ -1,6 +1,6 @@
 .dock-outer {
   position: fixed;
-  top: 0;
+  bottom: 60px;
   left: 0;
   right: 0;
   z-index: 50;
@@ -18,7 +18,7 @@
   width: fit-content;
   gap: 1rem;
   border-radius: 1rem;
-  background-color: rgba(6, 0, 16, 0.3);
+  /* background-color: rgba(18, 3, 43, 0.3); */
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0 0.5rem 0.5rem;

@@ -8,6 +8,7 @@ import Aurora from "@/components/custom/react-bits/Aurora";
 import Dock from "@/components/custom/react-bits/Dock/Dock";
 import { Home as HomeIcon, Archive, User, Settings } from "lucide-react";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
+import ShowCase from "@/components/pages/landing-page/Showcase";
 
 export default function Home() {
   const items = [
@@ -34,11 +35,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full">
       <Dock
         items={items}
-        panelHeight={68}
-        baseItemSize={50}
+        panelHeight={58}
+        baseItemSize={40}
         magnification={70}
       />
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fcf3f7] via-white to-[#fae9f2]">
@@ -114,6 +115,7 @@ export default function Home() {
       </section>
 
       <ProductDemo />
+      <ShowCase />
     </div>
   );
 }

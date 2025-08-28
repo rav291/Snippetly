@@ -56,7 +56,7 @@ interface LightRayProps {
   length: string;
 }
 
-const LightRay = React.memo<LightRayProps>(
+const LightRay = React.memo<LightRayProps>(function LightRay({
   ({
     left,
     rotation,

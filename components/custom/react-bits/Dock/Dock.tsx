@@ -150,12 +150,12 @@ function DockIcon({ children, className = "" }: DockIconProps) {
 
 export default function Dock({
   items,
-  className = "",
+  className = "bg-gradient-to-r from-slate-700 via-slate-800 to-slate-600",
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
   panelHeight = 68,
-  dockHeight = 256,
+
   baseItemSize = 50,
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
