@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GridPattern } from "@/components/magicui/grid-pattern";
 import { cn } from "@/lib/utils";
 
-// Custom shimmer loader (replaces react-bits Shimmer)
+// Custom shimmer loader
 function ShimmerLoader({ className }: { className?: string }) {
   return (
     <div
@@ -16,26 +16,66 @@ function ShimmerLoader({ className }: { className?: string }) {
   );
 }
 
-// Lightweight local Tweet card for demo content
-function DemoTweetCard({
+// Custom Tweet Component
+function CustomTweetCard({
   content,
   author,
   handle,
+  className,
 }: {
   content: string;
   author: string;
   handle: string;
+  className?: string;
 }) {
   return (
-    <div className="rounded-lg border p-4 text-left">
-      <div className="flex items-center gap-2">
-        <div className="h-10 w-10 rounded-full bg-muted" />
-        <div>
-          <div className="font-semibold">{author}</div>
-          <div className="text-sm text-muted-foreground">{handle}</div>
+    <div
+      className={cn(
+        "relative flex max-w-lg flex-col gap-3 overflow-hidden rounded-lg border bg-background p-4 shadow-sm",
+        className
+      )}
+    >
+      {/* Tweet Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <span className="text-white font-semibold text-sm">AI</span>
+          </div>
+          <div>
+            <div className="font-semibold text-sm">{author}</div>
+            <div className="text-sm text-muted-foreground">{handle}</div>
+          </div>
+        </div>
+        {/* Twitter/X Icon */}
+        <svg
+          className="h-5 w-5 text-[#3BA9EE] hover:scale-105 transition-transform"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z" />
+        </svg>
+      </div>
+
+      {/* Tweet Content */}
+      <div className="text-sm leading-relaxed whitespace-pre-wrap">
+        {content}
+      </div>
+
+      {/* Tweet Footer */}
+      <div className="flex items-center space-x-4 pt-2 text-muted-foreground">
+        <div className="flex items-center space-x-1 text-xs">
+          <span>💬</span>
+          <span>12</span>
+        </div>
+        <div className="flex items-center space-x-1 text-xs">
+          <span>🔄</span>
+          <span>34</span>
+        </div>
+        <div className="flex items-center space-x-1 text-xs">
+          <span>❤️</span>
+          <span>156</span>
         </div>
       </div>
-      <p className="mt-4 whitespace-pre-wrap text-sm">{content}</p>
     </div>
   );
 }
@@ -45,7 +85,7 @@ export default function ProductDemo() {
     {
       id: 1,
       content:
-        "💡 Consistency > Motivation.\n\nThe secret to growth is showing up, even when you don’t feel like it.",
+        "💡 Consistency > Motivation.\n\nThe secret to growth is showing up, even when you don't feel like it.",
       author: "AI Generated",
       handle: "@maverickAI",
     },
@@ -59,7 +99,7 @@ export default function ProductDemo() {
     {
       id: 3,
       content:
-        "📈 Growth is not about doing more.\n\nIt’s about doing the right things consistently.",
+        "📈 Growth is not about doing more.\n\nIt's about doing the right things consistently.",
       author: "AI Generated",
       handle: "@maverickAI",
     },
@@ -78,57 +118,60 @@ export default function ProductDemo() {
       }, 1200); // shimmer duration
     }, 6000);
 
-    return () => clearInterval(interval);
+    const initialTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(initialTimeout);
+    };
   }, [tweets.length]);
 
   return (
-    <section className="relative w-full py-24 overflow-hidden">
+    <section className="relative w-full bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.9)_0%,rgba(15,23,42,1)_70%,black_100%)] py-24 overflow-hidden">
       {/* Background GridPattern */}
       <GridPattern
         squares={[
           [4, 4],
-          [5, 1],
-          [8, 2],
-          [5, 3],
-          [5, 5],
-          [10, 10],
-          [12, 15],
-          [15, 10],
-          [10, 15],
-          [15, 10],
-          [10, 15],
-          [15, 10],
+          [8, 8],
+          [12, 12],
+          [16, 16],
         ]}
+        strokeWidth={2.5} // <-- thicker lines
         className={cn(
-          "absolute inset-0 opacity-40",
-          "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
-          "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+          "stroke-primary/40", // bigger mask
+          "inset-x-0 inset-y-[-20%] h-[200%] skew-y-12"
         )}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Heading */}
-        <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          See the Magic in Action
-        </h2>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Paste a transcript, and watch our AI turn it into a viral tweet in
-          seconds.
-        </p>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            See the Magic in Action
+          </h2>
+          <p className="mt-4 text-lg text-[#b4b4b4] max-w-2xl mx-auto">
+            Paste a transcript, and watch our AI turn it into a viral tweet in
+            seconds.
+          </p>
+        </div>
 
-        {/* Demo Box */}
-        <div className="mt-12 bg-card rounded-2xl shadow-xl p-8 max-w-3xl mx-auto border border-border">
-          {/* Transcript Input (read-only demo) */}
-          <textarea
-            readOnly
-            className="w-full h-28 resize-none rounded-lg border border-input bg-muted p-4 font-mono text-sm text-muted-foreground"
-            value={`"Today I learned that consistency beats motivation every single time. It's about habits, not moods."`}
-          />
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          {/* Transcript Input */}
+          <div>
+            <textarea
+              readOnly
+              className="w-full bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-950 h-48 resize-none rounded-lg border border-input p-4 font-mono text-sm text-muted-foreground"
+              value={`"Today I learned that consistency beats motivation every single time. It's about habits, not moods."`}
+            />
+          </div>
 
-          {/* Output Section */}
-          <div className="mt-6">
+          {/* Tweet Preview */}
+          <div className="flex justify-center">
             {loading ? (
-              <ShimmerLoader className="w-full h-32" />
+              <ShimmerLoader className="w-full max-w-lg h-48" />
             ) : (
               <AnimatePresence mode="wait">
                 <motion.div
@@ -138,7 +181,7 @@ export default function ProductDemo() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <DemoTweetCard
+                  <CustomTweetCard
                     content={tweets[index].content}
                     author={tweets[index].author}
                     handle={tweets[index].handle}
@@ -150,7 +193,7 @@ export default function ProductDemo() {
         </div>
 
         {/* CTA */}
-        <div className="mt-10">
+        <div className="mt-12 text-center">
           <a
             href="/demo"
             className={cn(

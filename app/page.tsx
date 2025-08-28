@@ -34,11 +34,11 @@ export default function Home() {
   ];
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full">
       <Dock
         items={items}
-        panelHeight={68}
-        baseItemSize={50}
+        panelHeight={58}
+        baseItemSize={40}
         magnification={70}
       />
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fcf3f7] via-white to-[#fae9f2]">
