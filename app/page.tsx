@@ -8,6 +8,7 @@ import Aurora from "@/components/custom/react-bits/Aurora";
 import Dock from "@/components/custom/react-bits/Dock/Dock";
 import { Home as HomeIcon, Archive, User, Settings } from "lucide-react";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
+import ShowCase from "@/components/pages/landing-page/Showcase";
 
 export default function Home() {
   const items = [
@@ -114,6 +115,7 @@ export default function Home() {
       </section>
 
       <ProductDemo />
+      <ShowCase />
     </div>
   );
 }
