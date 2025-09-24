@@ -8,7 +8,7 @@ import Aurora from "@/components/custom/react-bits/Aurora";
 import Dock from "@/components/custom/react-bits/Dock/Dock";
 import { Home as HomeIcon, Archive, User, Settings } from "lucide-react";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
-import ShowCase from "@/components/pages/landing-page/Showcase";
+import ShowCase, { MarqueeDemoVertical } from "@/components/pages/landing-page/Showcase";
 
 export default function Home() {
   const items = [
@@ -64,14 +64,14 @@ export default function Home() {
             Discover a Smarter Way to Manage Growth
           </motion.h1>
 
-          <motion.h2
+          {/* <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
             className="mt-4 text-lg md:text-xl font-medium text-white"
           >
             Turn complexity into clarity with our AI-powered platform.
-          </motion.h2>
+          </motion.h2> */}
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -97,7 +97,8 @@ export default function Home() {
                hover:opacity-90 text-white text-md px-8 py-6 rounded-2xl
                shadow-[0_0_20px_rgba(0,128,255,0.5)]"
             >
-              Get Started – It’s Free
+              {/* Get Started – It’s Free */}
+              Create your first tweet
             </Button>
 
             {/* Secondary Outline Button */}
@@ -115,7 +116,10 @@ export default function Home() {
       </section>
 
       <ProductDemo />
-      <ShowCase />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <MarqueeDemoVertical />
+
+      </section>
     </div>
   );
 }

@@ -131,7 +131,7 @@ export default function ProductDemo() {
   return (
     <section className="relative w-full bg-[radial-gradient(circle_at_center,rgba(30,41,59,0.9)_0%,rgba(15,23,42,1)_70%,black_100%)] py-24 overflow-hidden">
       {/* Background GridPattern */}
-      <GridPattern
+      {/* <GridPattern
         squares={[
           [4, 4],
           [8, 8],
@@ -143,7 +143,7 @@ export default function ProductDemo() {
           "stroke-primary/40", // bigger mask
           "inset-x-0 inset-y-[-20%] h-[200%] skew-y-12"
         )}
-      />
+      /> */}
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Heading */}
