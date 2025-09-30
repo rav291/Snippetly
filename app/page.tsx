@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { MacbookScrollDemo } from "@/components/pages/landing-page/CustomMacbookScroll";
 import styles from "../components/pages/landing-page/landing.module.css";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import NoTranscriptMode from "@/components/pages/landing-page/NoTranscriptMode";
 
 const page = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -160,7 +161,7 @@ const page = () => {
                   </h3>
 
                   {/* Magical Background Effects */}
-                  <div className="absolute inset-0 pointer-events-none">  
+                  <div className="absolute inset-0 pointer-events-none">
                     <svg
                       className="absolute inset-0 w-full h-full opacity-20"
                       viewBox="0 0 400 600"
@@ -368,6 +369,7 @@ const page = () => {
         </motion.div>
       </section>
       <MacbookScrollDemo />
+      <NoTranscriptMode />
     </div>
   );
 };

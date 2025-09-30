@@ -5,7 +5,7 @@ export function MacbookScrollDemo() {
   return (
     <div className="w-full overflow-hidden bg-white dark:bg-[#0B0B0F]">
       <MacbookScroll
-        title={<h2>Experience the future of content creation.</h2>}
+        title={"Experience the future of content creation"}
         badge={
           <a href="https://peerlist.io/manuarora">
             <Badge className="h-10 w-10 -rotate-12 transform" />
