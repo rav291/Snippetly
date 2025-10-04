@@ -9,7 +9,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Slippidly - Turn Your Content Into Ready-to-Post Tweets",
+  title: "Snippetly - Turn Your Content Into Ready-to-Post Tweets",
   description:
     "From transcripts to tweets—fast, simple, creative. AI-powered content repurposing for creators.",
 };

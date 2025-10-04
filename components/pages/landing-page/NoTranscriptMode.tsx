@@ -1,12 +1,17 @@
+// components/NoTranscriptMode.jsx
 "use client";
 
 import React, { useState } from "react";
+// Assuming these are still used, but their styling will be overridden/controlled by CSS Modules
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Sparkles, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+
+// Import the CSS Module
+import styles from "./NoTranscriptMode.module.css";
 
 const NoTranscriptMode = () => {
   const [temperature, setTemperature] = useState([0.7]);
@@ -15,40 +20,42 @@ const NoTranscriptMode = () => {
   const [length, setLength] = useState("short");
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-b from-muted/20 to-background">
-      <div className="max-w-6xl mx-auto">
+    <section className={styles.heroSection}>
+      <div className={styles.container}>
         <motion.div
-          className="text-center mb-16"
+          className={styles.intro}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <Badge className="mb-4" variant="outline">
-            <Zap className="w-4 h-4 mr-2" />
+          <Badge className={styles.badgeOutline}>
+            <Zap className={styles.badgeIcon} />
             Parameter Mode
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            No transcript? <span className="gradient-text">No problem</span>
+          <h2 className={styles.title}>
+            No transcript? <span className={styles.gradientText}>No problem</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className={styles.subtitle}>
             Use our smart parameter system to generate tweets that match your
             exact style and goals.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className={styles.gridContainer}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            transition={{ duration: 0.6 }}
+            className={styles.controlsColumn}
           >
-            <Card className="p-6 glass">
-              <div className="space-y-6">
+            <Card className={`${styles.card} ${styles.glassEffect}`}>
+              <div className={styles.controlGroup}>
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
+                  <label className={styles.controlLabel}>
                     Temperature: {temperature[0]}
-                    <span className="text-muted-foreground ml-2">
+                    <span className={styles.controlLabelSecondary}>
                       {temperature[0] < 0.3
                         ? "(Safe)"
                         : temperature[0] > 0.7
@@ -56,21 +63,20 @@ const NoTranscriptMode = () => {
                         : "(Balanced)"}
                     </span>
                   </label>
+                  {/* Slider might need custom styling in the module or remain with shadcn default */}
                   <Slider
                     value={temperature}
                     onValueChange={setTemperature}
                     max={1}
                     min={0}
                     step={0.1}
-                    className="w-full"
+                    className={styles.slider}
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
-                    Genre
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <label className={styles.controlLabel}>Genre</label>
+                  <div className={styles.buttonGrid}>
                     {[
                       "Educational",
                       "Witty",
@@ -84,11 +90,11 @@ const NoTranscriptMode = () => {
                         }
                         size="sm"
                         onClick={() => setGenre(item.toLowerCase())}
-                        className={
+                        className={`${styles.controlButton} ${
                           genre === item.toLowerCase()
-                            ? "bg-gradient-primary"
-                            : "glass"
-                        }
+                            ? styles.activeButton
+                            : styles.glassButton
+                        }`}
                       >
                         {item}
                       </Button>
@@ -97,8 +103,8 @@ const NoTranscriptMode = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">Tone</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <label className={styles.controlLabel}>Tone</label>
+                  <div className={styles.buttonGridThree}>
                     {["Casual", "Professional", "Sarcastic"].map((item) => (
                       <Button
                         key={item}
@@ -107,11 +113,11 @@ const NoTranscriptMode = () => {
                         }
                         size="sm"
                         onClick={() => setTone(item.toLowerCase())}
-                        className={
+                        className={`${styles.controlButton} ${
                           tone === item.toLowerCase()
-                            ? "bg-gradient-primary"
-                            : "glass"
-                        }
+                            ? styles.activeButton
+                            : styles.glassButton
+                        }`}
                       >
                         {item}
                       </Button>
@@ -120,10 +126,8 @@ const NoTranscriptMode = () => {
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium mb-3 block">
-                    Length
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <label className={styles.controlLabel}>Length</label>
+                  <div className={styles.buttonGridThree}>
                     {["Short", "Starter", "Thread"].map((item) => (
                       <Button
                         key={item}
@@ -132,11 +136,11 @@ const NoTranscriptMode = () => {
                         }
                         size="sm"
                         onClick={() => setLength(item.toLowerCase())}
-                        className={
+                        className={`${styles.controlButton} ${
                           length === item.toLowerCase()
-                            ? "bg-gradient-primary"
-                            : "glass"
-                        }
+                            ? styles.activeButton
+                            : styles.glassButton
+                        }`}
                       >
                         {item}
                       </Button>
@@ -144,8 +148,8 @@ const NoTranscriptMode = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-gradient-primary glow-hover">
-                  <Sparkles className="w-4 h-4 mr-2" />
+                <Button className={`${styles.generateButton} ${styles.glowHover}`}>
+                  <Sparkles className={styles.buttonIcon} />
                   Generate Random Tweet
                 </Button>
               </div>
@@ -156,32 +160,31 @@ const NoTranscriptMode = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            transition={{ duration: 0.6 }}
+            className={styles.previewColumn}
           >
-            <Card className="p-6 glass glow">
-              <Badge className="mb-4" variant="secondary">
-                Live Preview
-              </Badge>
-              <div className="space-y-4">
+            <Card className={`${styles.card} ${styles.glassEffect} ${styles.glowBorder}`}>
+              <Badge className={styles.livePreviewBadge}>Live Preview</Badge>
+              <div className={styles.previewContent}>
                 <motion.div
-                  className="p-4 bg-gradient-card rounded-lg border border-white/10"
+                  className={styles.tweetCard}
                   key={`${genre}-${tone}-${length}-${temperature[0]}`}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-sm">
+                  <p className={styles.tweetText}>
                     {genre === "witty" && tone === "casual"
                       ? "🤔 Hot take: Everyone's talking about AI replacing jobs, but what if it just made us better at the human stuff? Like actually connecting with people instead of drowning in busywork."
                       : "💡 The future belongs to creators who understand that AI isn't about replacement—it's about amplification. Here's how to stay ahead of the curve."}
                   </p>
-                  <div className="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
-                    <div className="flex gap-3 text-xs text-muted-foreground">
+                  <div className={styles.tweetFooter}>
+                    <div className={styles.tweetActions}>
+                      <span>Like</span>
                       <span>Reply</span>
                       <span>Repost</span>
-                      <span>Like</span>
                     </div>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className={styles.tweetLengthBadge}>
                       {length === "short"
                         ? "140 chars"
                         : length === "starter"
@@ -195,6 +198,11 @@ const NoTranscriptMode = () => {
           </motion.div>
         </div>
       </div>
+      {/* Animated Blobs (positioned within the section) */}
+      <div className={`${styles.blob} ${styles.blobOne}`}></div>
+      <div className={`${styles.blob} ${styles.blobTwo}`}></div>
+      <div className={`${styles.blob} ${styles.blobThree}`}></div>
+      <div className={`${styles.blob} ${styles.blobFour}`}></div>
     </section>
   );
 };
