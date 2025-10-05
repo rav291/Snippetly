@@ -2,8 +2,6 @@
   color: white;
 }
 
-
-
 .gradientText {
   display: inline-block;
   background: linear-gradient(90deg, #34d399, #10b981, #059669);

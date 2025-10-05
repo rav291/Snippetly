@@ -6,6 +6,10 @@ import { MacbookScrollDemo } from "@/components/pages/landing-page/CustomMacbook
 import styles from "../components/pages/landing-page/landing.module.css";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import NoTranscriptMode from "@/components/pages/landing-page/NoTranscriptMode";
+import ContentLibrary from "@/components/pages/landing-page/ContentLibrary";
+import WorkflowSection from "@/components/pages/landing-page/WorkflowSection";
+import Footer from "@/components/pages/landing-page/Footer";
+import HeroSection from "@/components/pages/landing-page/HeroSection";
 
 const page = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -45,84 +49,7 @@ const page = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex flex-col justify-center px-8 lg:px-16 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto text-center space-y-8"
-        >
-          {/* Badge */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center px-4 py-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 backdrop-blur-sm"
-          >
-            <div className="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
-            <span className="text-emerald-400 text-sm font-medium tracking-wide">
-              AI Content Engine
-            </span>
-          </motion.div> */}
-
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-6xl lg:text-7xl font-bold leading-tight font-[var(--font-space-grotesk)]"
-          >
-            <span className={styles.textWhite}>Transform </span>
-            <span className={styles.textWhite}>Your </span>
-            <span className={styles.gradientText}>content</span>
-            <span className={styles.textWhite}> into </span>
-            <span className={styles.textViolet}>viral</span>
-            <span className={styles.textWhite}> tweets</span>
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-2xl text-gray-300 leading-relaxed max-w-3xl mx-auto"
-          >
-            AI-powered content repurposing. From long-form to social-ready in
-            seconds.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleGenerate}
-              className="group relative px-5 py-2 bg-emerald-400 text-slate-950 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 shadow-2xl hover:shadow-emerald-400/25 transition-all duration-300"
-            >
-              {/* <div className="w-6 h-6 border-2 border-slate-950 border-t-transparent rounded-full animate-spin group-hover:animate-none"></div> */}
-              <span>Start Free</span>
-              <motion.div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-violet-400 rounded-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group px-5 py-2 border-2 border-violet-400 text-violet-400 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 hover:bg-violet-400 hover:text-slate-950 transition-all duration-300"
-            >
-              <span>See Demo</span>
-              <motion.span className="group-hover:translate-x-1 transition-transform duration-300">
-                →
-              </motion.span>
-            </motion.button>
-          </motion.div>
-        </motion.div>
-      </section>
+      <HeroSection />
 
       {/* Product Demo Section */}
       <section className="relative z-10 px-8 lg:px-16 pb-16">
@@ -132,9 +59,18 @@ const page = () => {
           transition={{ duration: 0.8, delay: 1.0 }}
           className="max-w-6xl mx-auto"
         >
-          <div className="">
-            <WavyBackground className="max-w-5xl mx-auto pt-20">
-              <div className="flex flex-col lg:flex-row gap-24 w-full">
+          <div>
+            <WavyBackground
+              className="max-w-5xl mx-auto pt-20"
+              colors={[
+                "#3B82F6", // vivid blue
+                "#6366F1", // deep indigo
+                "#8B5CF6", // royal violet
+                "#D946EF", // hot pink-magenta
+                "#06B6D4", // aqua cyan
+              ]}
+            >
+              <div className="flex flex-col lg:flex-row gap-24 w-full ">
                 {/* Input Section */}
                 <div className="flex flex-1 items-center">
                   <div className="w-full space-y-6">
@@ -370,6 +306,9 @@ const page = () => {
       </section>
       <MacbookScrollDemo />
       <NoTranscriptMode />
+      <ContentLibrary />
+      <WorkflowSection />
+      <Footer />
     </div>
   );
 };
