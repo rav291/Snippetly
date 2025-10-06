@@ -1,6 +1,6 @@
 /* HeroSection.module.css - Bold, Modern Approach */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 .hero {
   --accent: #10b981;
@@ -16,7 +16,7 @@
   align-items: center;
   background: #0a0a0f;
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   overflow: hidden;
   padding: 4rem 2rem;
 }
@@ -67,15 +67,22 @@
 }
 
 @keyframes dotPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.6; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
 }
 
 /* Headline */
 .headline {
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.25;
   letter-spacing: -0.03em;
   color: var(--text-primary);
   margin: 0;
@@ -83,10 +90,9 @@
 
 .wordCycle {
   position: relative;
-  display: inline-block;
-  height: 1.2em;
-  vertical-align: bottom;
+  /* height: 0.2em; */
   overflow: hidden;
+  margin-left: 12px;
 }
 
 .word {
@@ -95,7 +101,11 @@
   top: 0;
   opacity: 0;
   transform: translateY(100%);
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-blue) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,7 +121,12 @@
 .headlineAccent {
   display: block;
   margin-top: 0.5rem;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-blue) 50%,
+    var(--accent-purple) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -120,7 +135,9 @@
 }
 
 @keyframes gradientShift {
-  to { background-position: 200% center; }
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* Subheadline */
@@ -208,7 +225,7 @@
 }
 
 .primaryBtn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
@@ -229,6 +246,7 @@
   width: 1.25rem;
   height: 1.25rem;
   transition: transform 0.3s;
+  color: white;
 }
 
 .primaryBtn:hover .btnIcon {
@@ -323,14 +341,23 @@
 
 .contentLine {
   height: 0.75rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
   border-radius: 0.5rem;
   animation: shimmer 2s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .processingLine {
@@ -357,8 +384,16 @@
 }
 
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-  40% { transform: scale(1); opacity: 1; }
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.3;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .tweetPreview {
@@ -389,7 +424,11 @@
 
 .tweetLine {
   height: 0.75rem;
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.3), rgba(16, 185, 129, 0.1));
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.3),
+    rgba(16, 185, 129, 0.1)
+  );
   border-radius: 0.5rem;
 }
 
@@ -431,8 +470,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .badgeIcon {
@@ -445,12 +489,18 @@
 .bgGrid {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient(rgba(16, 185, 129, 0.02) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(16, 185, 129, 0.02) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(16, 185, 129, 0.02) 1px, transparent 1px);
   background-size: 50px 50px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 30%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 
@@ -481,13 +531,23 @@
 }
 
 @keyframes orbFloat1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(50px, -50px) scale(1.1); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
 }
 
 @keyframes orbFloat2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-50px, 50px) scale(1.1); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50px, 50px) scale(1.1);
+  }
 }
 
 /* Responsive */

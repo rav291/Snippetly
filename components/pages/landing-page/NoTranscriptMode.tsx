@@ -34,7 +34,8 @@ const NoTranscriptMode = () => {
             Parameter Mode
           </Badge>
           <h2 className={styles.title}>
-            No transcript? <span className={styles.gradientText}>No problem</span>
+            No transcript?{" "}
+            <span className={styles.gradientText}>No problem</span>
           </h2>
           <p className={styles.subtitle}>
             Use our smart parameter system to generate tweets that match your
@@ -148,7 +149,9 @@ const NoTranscriptMode = () => {
                   </div>
                 </div>
 
-                <Button className={`${styles.generateButton} ${styles.glowHover}`}>
+                <Button
+                  className={`${styles.generateButton} ${styles.glowHover}`}
+                >
                   <Sparkles className={styles.buttonIcon} />
                   Generate Random Tweet
                 </Button>
@@ -163,7 +166,9 @@ const NoTranscriptMode = () => {
             transition={{ duration: 0.6 }}
             className={styles.previewColumn}
           >
-            <Card className={`${styles.card} ${styles.glassEffect} ${styles.glowBorder}`}>
+            <Card
+              className={`${styles.card} ${styles.glassEffect} ${styles.glowBorder}`}
+            >
               <Badge className={styles.livePreviewBadge}>Live Preview</Badge>
               <div className={styles.previewContent}>
                 <motion.div
@@ -184,7 +189,10 @@ const NoTranscriptMode = () => {
                       <span>Reply</span>
                       <span>Repost</span>
                     </div>
-                    <Badge variant="outline" className={styles.tweetLengthBadge}>
+                    <Badge
+                      variant="outline"
+                      className={styles.tweetLengthBadge}
+                    >
                       {length === "short"
                         ? "140 chars"
                         : length === "starter"

@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Zap, Clock, TrendingUp } from 'lucide-react';
-import styles from './HeroSection.module.css';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Zap, Clock, TrendingUp } from "lucide-react";
+import styles from "./HeroSection.module.css";
 
 const HeroSection = () => {
   const [currentWord, setCurrentWord] = useState(0);
-  const words = ['Videos', 'Podcasts', 'Articles', 'Newsletters'];
+  const words = ["Transcripts", "Articles", "Captions", "Notes"];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
-    }, 2000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   const handleGenerate = () => {
-    console.log('Generate clicked');
+    console.log("Generate clicked");
   };
 
   return (
@@ -38,16 +38,16 @@ const HeroSection = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            // transition={{ duration: 0.6, delay: 0.1 }}
             className={styles.headline}
           >
-            Turn your{' '}
+            Turn your{" "}
             <span className={styles.wordCycle}>
               {words.map((word, index) => (
                 <span
                   key={word}
                   className={`${styles.word} ${
-                    index === currentWord ? styles.wordActive : ''
+                    index === currentWord ? styles.wordActive : ""
                   }`}
                 >
                   {word}
@@ -67,8 +67,9 @@ const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className={styles.subheadline}
           >
-            Stop manually repurposing content. Slippidly analyzes your long-form 
-            content and generates authentic, engagement-ready tweets that sound like you.
+            Stop manually repurposing content. Snippetly analyzes your long-form
+            content and generates authentic, engagement-ready tweets that sound
+            like you.
           </motion.p>
 
           {/* Stats Bar */}
@@ -111,15 +112,35 @@ const HeroSection = () => {
             className={styles.ctaGroup}
           >
             <button onClick={handleGenerate} className={styles.primaryBtn}>
-              <span>Start free — no card required</span>
+              <span className="text-white">Start free — no card required</span>
               <ArrowRight className={styles.btnIcon} />
             </button>
             <div className={styles.socialProof}>
               <div className={styles.avatarStack}>
-                <div className={styles.avatar} style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }} />
-                <div className={styles.avatar} style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }} />
-                <div className={styles.avatar} style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)' }} />
-                <div className={styles.avatar} style={{ background: 'linear-gradient(135deg, #ec4899, #8b5cf6)' }} />
+                <div
+                  className={styles.avatar}
+                  style={{
+                    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                  }}
+                />
+                <div
+                  className={styles.avatar}
+                  style={{
+                    background: "linear-gradient(135deg, #10b981, #06b6d4)",
+                  }}
+                />
+                <div
+                  className={styles.avatar}
+                  style={{
+                    background: "linear-gradient(135deg, #f59e0b, #ef4444)",
+                  }}
+                />
+                <div
+                  className={styles.avatar}
+                  style={{
+                    background: "linear-gradient(135deg, #ec4899, #8b5cf6)",
+                  }}
+                />
               </div>
               <span className={styles.socialText}>Join 50,000+ creators</span>
             </div>
@@ -139,10 +160,22 @@ const HeroSection = () => {
               <div className={styles.cardLabel}>Your content</div>
               <div className={styles.cardContent}>
                 <div className={styles.contentBlock}>
-                  <div className={styles.contentLine} style={{ width: '95%' }} />
-                  <div className={styles.contentLine} style={{ width: '88%' }} />
-                  <div className={styles.contentLine} style={{ width: '92%' }} />
-                  <div className={styles.contentLine} style={{ width: '78%' }} />
+                  <div
+                    className={styles.contentLine}
+                    style={{ width: "95%" }}
+                  />
+                  <div
+                    className={styles.contentLine}
+                    style={{ width: "88%" }}
+                  />
+                  <div
+                    className={styles.contentLine}
+                    style={{ width: "92%" }}
+                  />
+                  <div
+                    className={styles.contentLine}
+                    style={{ width: "78%" }}
+                  />
                 </div>
               </div>
             </div>
@@ -160,15 +193,27 @@ const HeroSection = () => {
               <div className={styles.tweetPreview}>
                 <div className={styles.tweetItem}>
                   <div className={styles.tweetText}>
-                    <div className={styles.tweetLine} style={{ width: '100%' }} />
-                    <div className={styles.tweetLine} style={{ width: '85%' }} />
+                    <div
+                      className={styles.tweetLine}
+                      style={{ width: "100%" }}
+                    />
+                    <div
+                      className={styles.tweetLine}
+                      style={{ width: "85%" }}
+                    />
                   </div>
                   <div className={styles.tweetMeta}>280 chars</div>
                 </div>
                 <div className={styles.tweetItem}>
                   <div className={styles.tweetText}>
-                    <div className={styles.tweetLine} style={{ width: '95%' }} />
-                    <div className={styles.tweetLine} style={{ width: '78%' }} />
+                    <div
+                      className={styles.tweetLine}
+                      style={{ width: "95%" }}
+                    />
+                    <div
+                      className={styles.tweetLine}
+                      style={{ width: "78%" }}
+                    />
                   </div>
                   <div className={styles.tweetMeta}>265 chars</div>
                 </div>

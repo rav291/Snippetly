@@ -171,11 +171,9 @@ export const Lid = ({
         /> */}
 
         <video
-          src={
-            "https://media.istockphoto.com/id/1772875744/video/charts-graphs-diagrams-growing-on-digital-blue-screen-close-up-beautiful-3d-animation.mp4?s=mp4-640x640-is&k=20&c=QCJZ1ykPu8KnqvLQD6VcOinUKY6omUIqIqw5RNSF5x4="
-          }
+          src="/videos/ProductIntro.mp4"
           autoPlay
-          muted
+          muted 
           loop
           playsInline
           className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
