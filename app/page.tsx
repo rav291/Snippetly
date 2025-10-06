@@ -1,121 +1,66 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
-import Aurora from "@/components/custom/react-bits/Aurora";
-import Dock from "@/components/custom/react-bits/Dock/Dock";
-import { Home as HomeIcon, Archive, User, Settings } from "lucide-react";
+import { MacbookScrollDemo } from "@/components/pages/landing-page/CustomMacbookScroll";
+import styles from "../components/pages/landing-page/landing.module.css";
+import { WavyBackground } from "@/components/ui/wavy-background";
+import NoTranscriptMode from "@/components/pages/landing-page/NoTranscriptMode";
+import ContentLibrary from "@/components/pages/landing-page/ContentLibrary";
+import WorkflowSection from "@/components/pages/landing-page/WorkflowSection";
+import Footer from "@/components/pages/landing-page/Footer";
+import HeroSection from "@/components/pages/landing-page/HeroSection";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
-import ShowCase from "@/components/pages/landing-page/Showcase";
 
-export default function Home() {
-  const items = [
+const page = () => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedTweets, setGeneratedTweets] = useState([]);
+
+  const tweets = [
     {
-      icon: <HomeIcon size={18} />,
-      label: "Home",
-      onClick: () => alert("Home!"),
+      id: 1,
+      emoji: "🔥",
+      content:
+        "The creator economy is exploding, but distribution is the real challenge. Here's why AI isn't just changing creation—it's revolutionizing how we connect with audiences.",
+      ready: true,
     },
     {
-      icon: <Archive size={18} />,
-      label: "Archive",
-      onClick: () => alert("Archive!"),
+      id: 2,
+      emoji: "💡",
+      content:
+        "Stop spending hours repurposing content. The future of creation is about working smarter, not harder. Here's what changed my workflow completely:",
+      ready: true,
     },
     {
-      icon: <User size={18} />,
-      label: "Profile",
-      onClick: () => alert("Profile!"),
-    },
-    {
-      icon: <Settings size={18} />,
-      label: "Settings",
-      onClick: () => alert("Settings!"),
+      id: 3,
+      emoji: "🚀",
+      content:
+        "AI + Creator workflow = Game changer. Just transformed 20 minutes of video into 10 ready-to-post tweets. The creator economy just got more accessible.",
+      ready: true,
     },
   ];
 
+  const handleGenerate = () => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      setGeneratedTweets(tweets);
+      setIsGenerating(false);
+    }, 2000);
+  };
+
   return (
-    <div className="relative min-h-screen w-full">
-      <Dock
-        items={items}
-        panelHeight={58}
-        baseItemSize={40}
-        magnification={70}
-      />
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#fcf3f7] via-white to-[#fae9f2]">
-        {/* Subtle Grid Background */}
-        <div className="w-full h-screen absolute">
-          <Aurora
-            colorStops={["#00FFBF", "#0080FF", "#868CFF"]}
-            blend={0.5}
-            amplitude={1.0}
-            speed={0.5}
-          />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <HeroSection />
 
-        {/* Content */}
-        <div className="relative z-10 px-6 max-w-5xl text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-4xl md:text-6xl font-bold tracking-tight text-[#161122] text-white"
-          >
-            Discover a Smarter Way to Manage Growth
-          </motion.h1>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="mt-4 text-lg md:text-xl font-medium text-white"
-          >
-            Turn complexity into clarity with our AI-powered platform.
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-6 text-md md:text-lg text-white leading-relaxed max-w-2xl mx-auto"
-          >
-            Automate your workflow, visualize insights instantly, and unlock
-            smarter decisions — all in one place.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            {/* Primary Aurora Button */}
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-[rgb(0,255,191)] via-[rgb(0,128,255)] to-[rgb(134,140,255)] 
-               hover:opacity-90 text-white text-md px-8 py-6 rounded-2xl
-               shadow-[0_0_20px_rgba(0,128,255,0.5)]"
-            >
-              Get Started – It’s Free
-            </Button>
-
-            {/* Secondary Outline Button */}
-            <SignInButton mode="modal">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-[rgb(0,128,255)] text-[rgb(0,128,255)] bg-transparent hover:bg-[rgb(0,128,255)] hover:text-white text-md px-8 py-6 rounded-2xl transition-colors"
-              >
-                Sign In
-              </Button>
-            </SignInButton>
-          </motion.div>
-        </div>
-      </section>
-
+      {/* Product Demo Section */}
       <ProductDemo />
-      <ShowCase />
+      <MacbookScrollDemo />
+      <NoTranscriptMode />
+      <ContentLibrary />
+      <WorkflowSection />
+      <Footer />
     </div>
   );
-}
+};
+
+export default page;

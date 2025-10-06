@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { Lexend } from "next/font/google";
 
-const lexend = Lexend({ subsets: ["latin"], variable: "--font-lexend" });
+const inter = Inter({ subsets: ["latin"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 export const metadata: Metadata = {
-  title: "Snippetly",
-  description: "AI tweet generator",
+  title: "Snippetly - Turn Your Content Into Ready-to-Post Tweets",
+  description:
+    "From transcripts to tweets—fast, simple, creative. AI-powered content repurposing for creators.",
 };
 
 export default function RootLayout({
@@ -16,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={lexend.variable}>
-        <body className="font-lexend">{children}</body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} ${spaceGrotesk.variable}`}>
+        {children}
+      </body>
+    </html>
   );
 }
