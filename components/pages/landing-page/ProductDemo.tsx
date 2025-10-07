@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { WavyBackground } from "@/components/ui/wavy-background";
+import { MultiStepLoader } from "@/components/common/MultiStepLoader";
 import styles from "./ProductDemo.module.css";
 
 type GeneratedTweet = { id: number; content: string; chars: number };
@@ -41,6 +42,35 @@ const ProductDemo = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleLoaderComplete = () => {
+    // Scroll to tweets section and highlight
+    setTimeout(() => {
+      const tweetsSection = document.getElementById("tweets-section");
+      if (tweetsSection) {
+        tweetsSection.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        // Add highlight effect with staggered animation
+        tweetsSection.classList.add("highlight-pulse");
+
+        // Add individual tweet animations
+        const tweetCards = tweetsSection.querySelectorAll(".tweetCard");
+        tweetCards.forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add("tweet-highlight");
+            setTimeout(() => {
+              card.classList.remove("tweet-highlight");
+            }, 1000);
+          }, index * 200);
+        });
+
+        // Remove main highlight after animation
+        setTimeout(() => {
+          tweetsSection.classList.remove("highlight-pulse");
+        }, 3000);
+      }
+    }, 500); // Small delay to ensure smooth transition
   };
 
   const handleCopy = async (content: string) => {
@@ -114,15 +144,14 @@ const ProductDemo = () => {
               {error && <div className={styles.errorBox}>{error}</div>}
             </motion.div>
 
-            {isLoading && (
-              <div className={styles.loaderArea}>
-                <div className={styles.loader} />
-                <div className={styles.loaderText}>Thinking…</div>
-              </div>
-            )}
+            {/* MultiStepLoader integration */}
+            <MultiStepLoader
+              loading={isLoading}
+              onComplete={handleLoaderComplete}
+            />
 
             {!!tweets.length && (
-              <div className={styles.tweetsContainer}>
+              <div id="tweets-section" className={styles.tweetsContainer}>
                 {tweets.map((tweet, index) => (
                   <motion.div
                     key={tweet.id}

@@ -37,6 +37,7 @@ const CheckFilled = ({ className }: { className?: string }) => {
 
 type LoadingState = {
   text: string;
+  tip?: string;
 };
 
 const LoaderCore = ({
@@ -93,32 +94,51 @@ export const MultiStepLoader = ({
   loadingStates,
   loading,
   duration = 2000,
-  loop = true,
+  loop = false,
+  showTips = false,
+  currentTip = "",
+  onComplete,
 }: {
   loadingStates: LoadingState[];
   loading?: boolean;
   duration?: number;
   loop?: boolean;
+  showTips?: boolean;
+  currentTip?: string;
+  onComplete?: () => void;
 }) => {
   const [currentState, setCurrentState] = useState(0);
 
   useEffect(() => {
     if (!loading) {
       setCurrentState(0);
+      if (onComplete) {
+        setTimeout(onComplete, 500); // Small delay for smooth transition
+      }
       return;
     }
     const timeout = setTimeout(() => {
-      setCurrentState((prevState) =>
-        loop
+      setCurrentState((prevState) => {
+        const nextState = loop
           ? prevState === loadingStates.length - 1
             ? 0
             : prevState + 1
-          : Math.min(prevState + 1, loadingStates.length - 1)
-      );
+          : Math.min(prevState + 1, loadingStates.length - 1);
+
+        // If we've completed all states and not looping, trigger completion
+        if (!loop && nextState === loadingStates.length - 1) {
+          setTimeout(() => {
+            if (onComplete) onComplete();
+          }, duration);
+        }
+
+        return nextState;
+      });
     }, duration);
 
     return () => clearTimeout(timeout);
-  }, [currentState, loading, loop, loadingStates.length, duration]);
+  }, [currentState, loading, loop, loadingStates.length, duration, onComplete]);
+
   return (
     <AnimatePresence mode="wait">
       {loading && (
@@ -134,11 +154,76 @@ export const MultiStepLoader = ({
           }}
           className="w-full h-full fixed inset-0 z-[100] flex items-center justify-center backdrop-blur-2xl"
         >
-          <div className="h-96  relative">
-            <LoaderCore value={currentState} loadingStates={loadingStates} />
+          <div className="relative w-full max-w-4xl mx-auto px-4">
+            {/* Main loading content */}
+            <div className="flex flex-col items-center justify-center min-h-screen">
+              <div className="h-96 relative mb-8">
+                <LoaderCore
+                  value={currentState}
+                  loadingStates={loadingStates}
+                />
+              </div>
+
+              {/* Tips section */}
+              {showTips && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="max-w-2xl mx-auto text-center"
+                >
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+                    <div className="flex items-center justify-center mb-4">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="text-2xl"
+                      >
+                        💡
+                      </motion.div>
+                    </div>
+                    <motion.p
+                      key={currentTip}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-white/90 text-lg font-medium"
+                    >
+                      {currentTip}
+                    </motion.p>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Progress indicator */}
+              <div className="mt-8 w-full max-w-md">
+                <div className="flex justify-between text-sm text-white/60 mb-2">
+                  <span>Progress</span>
+                  <span>
+                    {currentState + 1} of {loadingStates.length}
+                  </span>
+                </div>
+                <div className="w-full bg-white/20 rounded-full h-2">
+                  <motion.div
+                    className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full"
+                    initial={{ width: "0%" }}
+                    animate={{
+                      width: `${
+                        ((currentState + 1) / loadingStates.length) * 100
+                      }%`,
+                    }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-gradient-to-t inset-x-0 z-20 bottom-0 bg-white dark:bg-black h-full absolute [mask-image:radial-gradient(900px_at_center,transparent_30%,white)]" />
+          <div className="bg-gradient-to-t inset-x-0 z-20 bottom-0 bg-black/50 h-full absolute [mask-image:radial-gradient(900px_at_center,transparent_30%,white)]" />
         </motion.div>
       )}
     </AnimatePresence>

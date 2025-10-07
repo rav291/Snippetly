@@ -12,10 +12,40 @@ import Footer from "@/components/pages/landing-page/Footer";
 import HeroSection from "@/components/pages/landing-page/HeroSection";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
 import { MultiStepLoader } from "@/components/common/MultiStepLoader";
+import FloatingNavbar from "@/components/ui/floating-navbar";
+import {
+  IconBrandTwitter,
+  IconHome,
+  IconInfoCircle,
+  IconMail,
+} from "@tabler/icons-react";
 
 const page = () => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedTweets, setGeneratedTweets] = useState([]);
+  const [generatedTweets, setGeneratedTweets] = useState<any[]>([]);
+
+  const navItems = [
+    {
+      name: "Home",
+      link: "#home",
+      icon: <IconHome className="h-4 w-4" />,
+    },
+    {
+      name: "Demo",
+      link: "#demo",
+      icon: <IconBrandTwitter className="h-4 w-4" />,
+    },
+    {
+      name: "Features",
+      link: "#features",
+      icon: <IconInfoCircle className="h-4 w-4" />,
+    },
+    {
+      name: "Contact",
+      link: "#contact",
+      icon: <IconMail className="h-4 w-4" />,
+    },
+  ];
 
   const tweets = [
     {
@@ -51,11 +81,11 @@ const page = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <FloatingNavbar navItems={navItems} />
       <HeroSection />
 
       {/* Product Demo Section */}
       <ProductDemo />
-      <MultiStepLoader />
       <MacbookScrollDemo />
       <NoTranscriptMode />
       <ContentLibrary />

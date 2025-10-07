@@ -1,62 +1,82 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MultiStepLoader as Loader } from "../ui/multi-step-loader";
-import { IconSquareRoundedX } from "@tabler/icons-react";
+import {
+  IconSquareRoundedX,
+  IconBulb,
+  IconRocket,
+  IconTarget,
+  IconSparkles,
+} from "@tabler/icons-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const loadingStates = [
   {
-    text: "Buying a condo",
+    text: "Analyzing your content",
+    tip: "💡 Pro tip: Longer transcripts generate more diverse tweets",
   },
   {
-    text: "Travelling in a flight",
+    text: "Identifying key themes",
+    tip: "🚀 AI is finding the most engaging parts of your content",
   },
   {
-    text: "Meeting Tyler Durden",
+    text: "Crafting engaging hooks",
+    tip: "🎯 First impressions matter - we're optimizing your opening lines",
   },
   {
-    text: "He makes soap",
+    text: "Optimizing character count",
+    tip: "✨ Each tweet is crafted to maximize engagement within Twitter's limits",
   },
   {
-    text: "We goto a bar",
+    text: "Adding viral elements",
+    tip: "🔥 We're incorporating trending patterns to boost your reach",
   },
   {
-    text: "Start a fight",
-  },
-  {
-    text: "We like it",
-  },
-  {
-    text: "Welcome to F**** C***",
+    text: "Finalizing your tweets",
+    tip: "⚡ Almost ready! Your content will be perfectly formatted",
   },
 ];
 
-export function MultiStepLoader() {
-  const [loading, setLoading] = useState(false);
+const tips = [
+  "💡 Tip: Use trending hashtags to increase visibility",
+  "🎯 Pro tip: Post during peak hours (9-10 AM, 1-3 PM, 7-9 PM)",
+  "🚀 Engagement hack: Ask questions in your tweets",
+  "✨ Best practice: Keep your tone consistent across all tweets",
+  "🔥 Viral secret: Use emotional triggers in your content",
+  "⚡ Pro tip: Retweet your own tweets with different angles",
+];
+
+export function MultiStepLoader({
+  loading,
+  onComplete,
+}: {
+  loading: boolean;
+  onComplete?: () => void;
+}) {
+  const [currentTip, setCurrentTip] = useState(0);
+  const [showTips, setShowTips] = useState(false);
+
+  useEffect(() => {
+    if (loading) {
+      setShowTips(true);
+      const tipInterval = setInterval(() => {
+        setCurrentTip((prev) => (prev + 1) % tips.length);
+      }, 3000);
+
+      return () => clearInterval(tipInterval);
+    } else {
+      setShowTips(false);
+    }
+  }, [loading]);
+
   return (
-    <div className="w-full h-[10vh] flex items-center justify-center">
-      {/* Core Loader Modal */}
-      <Loader loadingStates={loadingStates} loading={loading} duration={2000} />
-
-      {/* The buttons are for demo only, remove it in your actual code ⬇️ */}
-      <button
-        onClick={() => setLoading(true)}
-        className="bg-[#39C3EF] hover:bg-[#39C3EF]/90 text-black mx-auto text-sm md:text-base transition font-medium duration-200 h-10 rounded-lg px-8 flex items-center justify-center"
-        style={{
-          boxShadow:
-            "0px -1px 0px 0px #ffffff40 inset, 0px 1px 0px 0px #ffffff40 inset",
-        }}
-      >
-        Click to load
-      </button>
-
-      {loading && (
-        <button
-          className="fixed top-4 right-4 text-black dark:text-white z-[120]"
-          onClick={() => setLoading(false)}
-        >
-          <IconSquareRoundedX className="h-10 w-10" />
-        </button>
-      )}
-    </div>
+    <Loader
+      loadingStates={loadingStates}
+      loading={loading}
+      duration={2500}
+      showTips={showTips}
+      currentTip={tips[currentTip]}
+      onComplete={onComplete}
+    />
   );
 }

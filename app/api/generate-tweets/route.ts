@@ -44,6 +44,16 @@ export async function POST(request: Request) {
           9 + Math.min(210, base.length) + (base.length > 210 ? 1 : 0)
         ),
       },
+      {
+        id: 4,
+        content: `Here's what I learned: ${base.slice(0, 190)}${
+          base.length > 190 ? "…" : ""
+        }`,
+        chars: Math.min(
+          280,
+          20 + Math.min(190, base.length) + (base.length > 190 ? 1 : 0)
+        ),
+      },
     ];
 
     return NextResponse.json({ tweets });
