@@ -11,6 +11,7 @@ import WorkflowSection from "@/components/pages/landing-page/WorkflowSection";
 import Footer from "@/components/pages/landing-page/Footer";
 import HeroSection from "@/components/pages/landing-page/HeroSection";
 import ProductDemo from "@/components/pages/landing-page/ProductDemo";
+import { MultiStepLoader } from "@/components/common/MultiStepLoader";
 
 const page = () => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -54,6 +55,7 @@ const page = () => {
 
       {/* Product Demo Section */}
       <ProductDemo />
+      <MultiStepLoader />
       <MacbookScrollDemo />
       <NoTranscriptMode />
       <ContentLibrary />

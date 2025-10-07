@@ -1,36 +1,59 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { WavyBackground } from "@/components/ui/wavy-background";
-import { ArrowRight } from "lucide-react";
 import styles from "./ProductDemo.module.css";
 
+type GeneratedTweet = { id: number; content: string; chars: number };
+
+const DEMO_TEXT =
+  "Hey everyone, in today's video I want to talk about something that's been on my mind lately — the creator economy and how AI is changing everything. We're seeing this massive shift where content creators are no longer just fighting for views, but figuring out how to maintain consistency across multiple platforms...";
+
 const ProductDemo = () => {
-  const tweets = [
-    {
-      id: 1,
-      content:
-        "The creator economy is exploding, but distribution is the real challenge. Here's why AI isn't just changing creation—it's revolutionizing how we connect with audiences.",
-      chars: 178,
-    },
-    {
-      id: 2,
-      content:
-        "Stop spending hours repurposing content. The future of creation is about working smarter, not harder. Here's what changed my workflow completely:",
-      chars: 156,
-    },
-    {
-      id: 3,
-      content:
-        "AI + Creator workflow = Game changer. Just transformed 20 minutes of video into 10 ready-to-post tweets. The creator economy just got more accessible.",
-      chars: 165,
-    },
-  ];
+  const [inputText, setInputText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [tweets, setTweets] = useState<GeneratedTweet[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleUseDemo = () => {
+    setInputText(DEMO_TEXT);
+    setTweets([]);
+    setError(null);
+  };
+
+  const handleGenerate = async () => {
+    if (!inputText.trim()) return;
+    setIsLoading(true);
+    setTweets([]);
+    setError(null);
+    try {
+      const res = await fetch("/api/generate-tweets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: inputText }),
+      });
+      if (!res.ok) throw new Error("Failed to generate tweets");
+      const data = await res.json();
+      setTweets(data.tweets ?? []);
+    } catch (e: any) {
+      setError(e?.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCopy = async (content: string) => {
+    try {
+      await navigator.clipboard.writeText(content);
+    } catch {}
+  };
 
   return (
     <section className={styles.section}>
       <WavyBackground
         className={styles.wavyBg}
-        colors={["#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"]}
+        colors={["#0d9488", "#14b8a6", "#06b6d4", "#2dd4bf", "#5eead4"]}
       >
         <div className={styles.container}>
           <motion.div
@@ -40,60 +63,73 @@ const ProductDemo = () => {
             transition={{ duration: 0.5 }}
             className={styles.header}
           >
-            <h2 className={styles.title}>See it work</h2>
+            <h2 className={styles.title}>Experience the Change</h2>
             <p className={styles.subtitle}>
-              From transcript to tweets in under 10 seconds
+              From transcript to tweets in seconds
             </p>
           </motion.div>
 
-          <div className={styles.demoGrid}>
+          <div className={styles.singleColumn}>
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className={styles.inputSection}
+              className={styles.inputCard}
             >
-              <div className={styles.label}>Input</div>
-              <div className={styles.inputCard}>
-                <p className={styles.transcriptText}>
-                  "Hey everyone, in today's video I want to talk about something
-                  that's been on my mind lately - the creator economy and how AI
-                  is changing everything. We're seeing this massive shift where
-                  content creators are no longer just fighting for views, but
-                  figuring out how to maintain consistency across multiple
-                  platforms..."
-                </p>
+              <div className={styles.label}>See it work</div>
+              <div className={styles.textareaWrapper}>
+                <textarea
+                  className={styles.textarea}
+                  placeholder="Paste transcript or write a paragraph..."
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  rows={10}
+                />
+                {!inputText && (
+                  <div className={styles.textareaHint}>
+                    Tip: You can start with our demo to see how it works.
+                  </div>
+                )}
               </div>
-              <div className={styles.metadata}>2,847 words · 15 min read</div>
+
+              <div className={styles.actionsRow}>
+                <button
+                  type="button"
+                  className={`${styles.btn} ${styles.btnGhost}`}
+                  onClick={handleUseDemo}
+                >
+                  Use demo text
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.btn} ${styles.btnPrimary}`}
+                  onClick={handleGenerate}
+                  disabled={isLoading || !inputText.trim()}
+                >
+                  {isLoading ? "Generating..." : "Generate tweets"}
+                </button>
+              </div>
+
+              {error && <div className={styles.errorBox}>{error}</div>}
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className={styles.arrow}
-            >
-              <ArrowRight />
-            </motion.div>
+            {isLoading && (
+              <div className={styles.loaderArea}>
+                <div className={styles.loader} />
+                <div className={styles.loaderText}>Thinking…</div>
+              </div>
+            )}
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className={styles.outputSection}
-            >
-              <div className={styles.label}>Output</div>
+            {!!tweets.length && (
               <div className={styles.tweetsContainer}>
                 {tweets.map((tweet, index) => (
                   <motion.div
                     key={tweet.id}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+                    transition={{ duration: 0.35, delay: 0.05 * index }}
                     className={styles.tweetCard}
                   >
                     <p className={styles.tweetText}>{tweet.content}</p>
@@ -101,12 +137,17 @@ const ProductDemo = () => {
                       <span className={styles.charCount}>
                         {tweet.chars}/280
                       </span>
-                      <button className={styles.copyBtn}>Copy</button>
+                      <button
+                        className={styles.copyBtn}
+                        onClick={() => handleCopy(tweet.content)}
+                      >
+                        Copy
+                      </button>
                     </div>
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            )}
           </div>
         </div>
       </WavyBackground>
