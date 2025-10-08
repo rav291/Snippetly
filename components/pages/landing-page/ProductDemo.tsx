@@ -150,14 +150,20 @@ const ProductDemo = () => {
               onComplete={handleLoaderComplete}
             />
 
-            {!!tweets.length && (
-              <div id="tweets-section" className={styles.tweetsContainer}>
+            {/* Only show tweets container when tweets exist */}
+            {tweets.length > 0 && (
+              <motion.div
+                id="tweets-section"
+                className={styles.tweetsContainer}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
                 {tweets.map((tweet, index) => (
                   <motion.div
                     key={tweet.id}
                     initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35, delay: 0.05 * index }}
                     className={styles.tweetCard}
                   >
@@ -175,7 +181,7 @@ const ProductDemo = () => {
                     </div>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

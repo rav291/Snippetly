@@ -38,7 +38,7 @@ export const MacbookScroll = ({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start -60%", "end start"],
+    offset: ["start -40%", "end -10%"],
   });
 
   const [isMobile, setIsMobile] = useState(false);
@@ -51,30 +51,49 @@ export const MacbookScroll = ({
 
   const scaleX = useTransform(
     scrollYProgress,
-    [0, 0.3],
+    [0, 0.4],
     [1.2, isMobile ? 1 : 1.5]
   );
   const scaleY = useTransform(
     scrollYProgress,
-    [0, 0.3],
+    [0, 0.4],
     [0.6, isMobile ? 1 : 1.5]
   );
   const translate = useTransform(scrollYProgress, [0, 1], [0, 1500]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
-  const textTransform = useTransform(scrollYProgress, [0, 0.3], [0, 100]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const rotate = useTransform(scrollYProgress, [0.1, 0.15, 0.4], [-28, -28, 0]);
+  const textTransform = useTransform(scrollYProgress, [0, 0.4], [0, 100]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const glowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6],
+    [0.8, 1, 0.3]
+  );
+  const glowScale = useTransform(scrollYProgress, [0, 0.3, 0.6], [1, 1.2, 1.5]);
 
   return (
     <div
       ref={ref}
-      className="flex min-h-[200vh] shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100"
+      className="relative flex min-h-[200vh] shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:scale-100 md:pt-16"
     >
+      {/* Glow Effect */}
+      <motion.div
+        style={{
+          opacity: glowOpacity,
+          scale: glowScale,
+        }}
+        className="absolute inset-0 -z-10 flex items-center justify-center"
+      >
+        <div className="absolute h-[40rem] w-[40rem] rounded-full bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-teal-500/20 blur-3xl" />
+        <div className="absolute h-[30rem] w-[30rem] rounded-full bg-gradient-to-r from-emerald-400/30 via-cyan-400/30 to-blue-400/30 blur-2xl" />
+        <div className="absolute h-[20rem] w-[20rem] rounded-full bg-gradient-to-r from-teal-300/40 via-emerald-300/40 to-cyan-300/40 blur-xl" />
+      </motion.div>
+
       <motion.h2
         style={{
           translateY: textTransform,
           opacity: textOpacity,
         }}
-        className="mb-20 text-center text-3xl font-bold text-neutral-800 dark:text-white"
+        className="mb-20 text-center text-4xl font-bold text-neutral-800 dark:text-white"
       >
         {title || (
           <span>
@@ -164,20 +183,27 @@ export const Lid = ({
         className="absolute inset-0 h-96 w-[32rem] rounded-2xl bg-[#010101] p-2"
       >
         <div className="absolute inset-0 rounded-lg bg-[#272729]" />
-        {/* <img
-          src={src as string}
-          alt="aceternity logo"
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-        /> */}
 
-        <video
-          src="/videos/ProductIntro.mp4"
-          autoPlay
-          muted 
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full rounded-lg object-cover object-left-top"
-        />
+        {/* Video with enhanced styling */}
+        <div className="absolute inset-2 rounded-lg overflow-hidden">
+          <video
+            src="/videos/ProductIntro.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover object-left-top"
+            style={{
+              filter: "brightness(1.1) contrast(1.05) saturate(1.1)",
+            }}
+          />
+          {/* Subtle overlay for better video integration */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/10" />
+        </div>
+
+        {/* Screen glow effect */}
+        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/5 via-transparent to-teal-500/5 pointer-events-none" />
+        <div className="absolute inset-0 rounded-lg shadow-[0_0_30px_rgba(59,130,246,0.15)] pointer-events-none" />
       </motion.div>
     </div>
   );

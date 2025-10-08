@@ -4,8 +4,8 @@
 
 .section {
   position: relative;
-  min-height: 220vh;
-  padding: 0rem 2rem;
+  min-height: auto;
+  padding: 4rem 2rem;
   background: #0a0a0f;
   font-family: "Inter", sans-serif;
   overflow: hidden;

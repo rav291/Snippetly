@@ -3,7 +3,12 @@ import { MacbookScroll } from "@/components/ui/macbook-scroll";
 
 export function MacbookScrollDemo() {
   return (
-    <div className="w-full overflow-hidden bg-white dark:bg-[#0B0B0F]">
+    <div className="relative w-full overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Background glow elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-teal-900/10" />
+      <div className="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-blue-500/5 blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-teal-500/5 blur-3xl" />
+
       <MacbookScroll
         title={"Experience the future of content creation"}
         badge={
