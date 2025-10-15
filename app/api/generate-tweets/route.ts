@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     const finalResponse = await contentGeneration(sanitizedText);
     console.log("finalResponse", finalResponse);
 
-    return NextResponse.json({ sanitized: finalResponse });
+    return NextResponse.json({ data: finalResponse });
   } catch (err) {
     console.error("Sanitization error:", err);
     return NextResponse.json(

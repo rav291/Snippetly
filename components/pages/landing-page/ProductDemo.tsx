@@ -34,9 +34,18 @@ const ProductDemo = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText }),
       });
+      
       if (!res.ok) throw new Error("Failed to generate tweets");
-      const data = await res.json();
-      setTweets(data.tweets ?? []);
+      const response = await res.json();
+      
+      console.log("generatedTweets3", response?.data);
+      const generatedTweets = response?.data.map((item, index) => ({
+        id: index,
+        content: item.tweet,
+        chars: item.tweet.length,
+      }));
+
+      setTweets(generatedTweets ?? []);
     } catch (e: any) {
       setError(e?.message || "Something went wrong");
     } finally {

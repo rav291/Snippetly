@@ -4,7 +4,7 @@
 
 .section {
   position: relative;
-  min-height: auto;
+  /* min-height: auto; */
   padding: 4rem 2rem;
   background: #0a0a0f;
   font-family: "Inter", sans-serif;
