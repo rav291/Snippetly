@@ -9,7 +9,7 @@ import styles from "./ProductDemo.module.css";
 type GeneratedTweet = { id: number; content: string; chars: number };
 
 const DEMO_TEXT =
-  "Hey everyone, in today's video I want to talk about something that's been on my mind lately — the creator economy and how AI is changing everything. We're seeing this massive shift where content creators are no longer just fighting for views, but figuring out how to maintain consistency across multiple platforms...";
+  "Lately, building feels less like problem-solving and more like learning to stay calm inside controlled turbulence. The deeper I go, the more I realize that the real craft isn’t in writing perfect code — it’s in keeping composure when everything starts breaking at once. Rewrites, edge cases, messy logic, and long nights used to frustrate me. Now they’ve become part of the rhythm — the quiet reminders that stability doesn’t come from fewer problems, it comes from better reactions. I’m still shaping Snippetly, still refactoring things that felt “final” just last week. But that’s where the growth hides — in the version you didn’t plan to rebuild but had the courage to. Shipping matters. Learning to stay grounded when everything bends matters more.#buildinpublic #frontenddev #Nextjs #learninginpublic #growth";
 
 const ProductDemo = () => {
   const [inputText, setInputText] = useState("");
@@ -34,10 +34,10 @@ const ProductDemo = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText }),
       });
-      
+
       if (!res.ok) throw new Error("Failed to generate tweets");
       const response = await res.json();
-      
+
       console.log("generatedTweets3", response?.data);
       const generatedTweets = response?.data.map((item, index) => ({
         id: index,
@@ -85,7 +85,7 @@ const ProductDemo = () => {
   const handleCopy = async (content: string) => {
     try {
       await navigator.clipboard.writeText(content);
-    } catch {}
+    } catch { }
   };
 
   return (
