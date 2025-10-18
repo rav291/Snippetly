@@ -80,13 +80,11 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative">
       {/* <FloatingNavbar navItems={navItems} /> */}
       <HeroSection />
-
-      {/* Product Demo Section */}
       <ProductDemo />
-      <MacbookScrollDemo />
+      {/* <MacbookScrollDemo /> */}
       <NoTranscriptMode />
       <ContentLibrary />
       <WorkflowSection />

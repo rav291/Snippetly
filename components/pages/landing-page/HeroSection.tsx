@@ -232,11 +232,6 @@ const HeroSection = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Background elements */}
-      <div className={styles.bgGrid} />
-      <div className={`${styles.bgOrb} ${styles.orb1}`} />
-      <div className={`${styles.bgOrb} ${styles.orb2}`} />
     </section>
   );
 };

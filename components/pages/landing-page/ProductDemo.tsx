@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { WavyBackground } from "@/components/ui/wavy-background";
 import { MultiStepLoader } from "@/components/common/MultiStepLoader";
 import styles from "./ProductDemo.module.css";
 
@@ -16,11 +15,13 @@ const ProductDemo = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tweets, setTweets] = useState<GeneratedTweet[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const handleUseDemo = () => {
     setInputText(DEMO_TEXT);
     setTweets([]);
     setError(null);
+    setCopiedIndex(null);
   };
 
   const handleGenerate = async () => {
@@ -28,6 +29,7 @@ const ProductDemo = () => {
     setIsLoading(true);
     setTweets([]);
     setError(null);
+
     try {
       const res = await fetch("/api/generate-tweets", {
         method: "POST",
@@ -38,12 +40,13 @@ const ProductDemo = () => {
       if (!res.ok) throw new Error("Failed to generate tweets");
       const response = await res.json();
 
-      console.log("generatedTweets3", response?.data);
-      const generatedTweets = response?.data.map((item, index) => ({
-        id: index,
-        content: item.tweet,
-        chars: item.tweet.length,
-      }));
+      const generatedTweets = response?.data.map(
+        (item: any, index: number) => ({
+          id: index,
+          content: item.tweet,
+          chars: item.tweet.length,
+        })
+      );
 
       setTweets(generatedTweets ?? []);
     } catch (e: any) {
@@ -54,16 +57,12 @@ const ProductDemo = () => {
   };
 
   const handleLoaderComplete = () => {
-    // Scroll to tweets section and highlight
     setTimeout(() => {
       const tweetsSection = document.getElementById("tweets-section");
       if (tweetsSection) {
         tweetsSection.scrollIntoView({ behavior: "smooth", block: "center" });
-
-        // Add highlight effect with staggered animation
         tweetsSection.classList.add("highlight-pulse");
 
-        // Add individual tweet animations
         const tweetCards = tweetsSection.querySelectorAll(".tweetCard");
         tweetCards.forEach((card, index) => {
           setTimeout(() => {
@@ -74,127 +73,215 @@ const ProductDemo = () => {
           }, index * 200);
         });
 
-        // Remove main highlight after animation
         setTimeout(() => {
           tweetsSection.classList.remove("highlight-pulse");
         }, 3000);
       }
-    }, 500); // Small delay to ensure smooth transition
+    }, 500);
   };
 
-  const handleCopy = async (content: string) => {
+  const handleCopy = async (content: string, index: number) => {
     try {
       await navigator.clipboard.writeText(content);
-    } catch { }
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    } catch {}
   };
 
   return (
     <section className={styles.section}>
-      <WavyBackground
-        className={styles.wavyBg}
-        colors={["#0d9488", "#14b8a6", "#06b6d4", "#2dd4bf", "#5eead4"]}
-      >
-        <div className={styles.container}>
-          <motion.div
+      {/* 3D cube background layers */}
+      <div className={`${styles.cubeLayer} ${styles.layer1}`} />
+      <div className={`${styles.cubeLayer} ${styles.layer2}`} />
+      <div className={`${styles.cubeLayer} ${styles.layer3}`} />
+
+      <div className={styles.container}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={styles.header}
+        >
+          <motion.h2
+            className={styles.title}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className={styles.header}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className={styles.title}>Experience the Change</h2>
-            <p className={styles.subtitle}>
-              From transcript to tweets in seconds
-            </p>
-          </motion.div>
+            Experience the Change
+          </motion.h2>
+          <motion.p
+            className={styles.subtitle}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            From transcript to tweets in seconds — powered by AI
+          </motion.p>
+        </motion.div>
 
-          <div className={styles.singleColumn}>
+        <div className={styles.singleColumn}>
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className={styles.inputCard}
+            whileHover={{ y: -2 }}
+          >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              className={styles.label}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className={styles.inputCard}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <div className={styles.label}>See it work</div>
-              <div className={styles.textareaWrapper}>
-                <textarea
-                  className={styles.textarea}
-                  placeholder="Paste transcript or write a paragraph..."
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  rows={10}
-                />
-                {!inputText && (
-                  <div className={styles.textareaHint}>
-                    Tip: You can start with our demo to see how it works.
-                  </div>
+              See it work
+            </motion.div>
+            <div className={styles.textareaWrapper}>
+              <motion.textarea
+                className={styles.textarea}
+                placeholder="Paste transcript or write a paragraph..."
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                rows={10}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              />
+              {!inputText && (
+                <motion.div
+                  className={styles.textareaHint}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  💡 Tip: You can start with our demo to see how it works.
+                </motion.div>
+              )}
+            </div>
+
+            <motion.div
+              className={styles.actionsRow}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <motion.button
+                type="button"
+                className={`${styles.btn} ${styles.btnGhost}`}
+                onClick={handleUseDemo}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Use demo text
+              </motion.button>
+              <motion.button
+                type="button"
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                onClick={handleGenerate}
+                disabled={isLoading || !inputText.trim()}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                animate={{
+                  scale: isLoading ? [1, 1.05, 1] : 1,
+                }}
+                transition={{
+                  scale: { duration: 0.6, repeat: isLoading ? Infinity : 0 },
+                }}
+              >
+                {isLoading ? (
+                  <motion.span
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    Generating...
+                  </motion.span>
+                ) : (
+                  "Generate tweets"
                 )}
-              </div>
-
-              <div className={styles.actionsRow}>
-                <button
-                  type="button"
-                  className={`${styles.btn} ${styles.btnGhost}`}
-                  onClick={handleUseDemo}
-                >
-                  Use demo text
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.btn} ${styles.btnPrimary}`}
-                  onClick={handleGenerate}
-                  disabled={isLoading || !inputText.trim()}
-                >
-                  {isLoading ? "Generating..." : "Generate tweets"}
-                </button>
-              </div>
-
-              {error && <div className={styles.errorBox}>{error}</div>}
+              </motion.button>
             </motion.div>
 
-            {/* MultiStepLoader integration */}
-            <MultiStepLoader
-              loading={isLoading}
-              onComplete={handleLoaderComplete}
-            />
-
-            {/* Only show tweets container when tweets exist */}
-            {tweets.length > 0 && (
+            {error && (
               <motion.div
-                id="tweets-section"
-                className={styles.tweetsContainer}
-                initial={{ opacity: 0, y: 20 }}
+                className={styles.errorBox}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.3 }}
               >
-                {tweets.map((tweet, index) => (
-                  <motion.div
-                    key={tweet.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35, delay: 0.05 * index }}
-                    className={styles.tweetCard}
-                  >
-                    <p className={styles.tweetText}>{tweet.content}</p>
-                    <div className={styles.tweetFooter}>
-                      <span className={styles.charCount}>
-                        {tweet.chars}/280
-                      </span>
-                      <button
-                        className={styles.copyBtn}
-                        onClick={() => handleCopy(tweet.content)}
-                      >
-                        Copy
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
+                {error}
               </motion.div>
             )}
-          </div>
+          </motion.div>
+
+          <MultiStepLoader
+            loading={isLoading}
+            onComplete={handleLoaderComplete}
+          />
+
+          {tweets.length > 0 && (
+            <motion.div
+              id="tweets-section"
+              className={styles.tweetsContainer}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              {tweets.map((tweet, index) => (
+                <motion.div
+                  key={tweet.id}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.1 * index,
+                    ease: [0.25, 0.46, 0.45, 0.94],
+                  }}
+                  className={styles.tweetCard}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <motion.p
+                    className={styles.tweetText}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.1 * index + 0.3 }}
+                  >
+                    {tweet.content}
+                  </motion.p>
+                  <div className={styles.tweetFooter}>
+                    <motion.span
+                      className={styles.charCount}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 * index + 0.4 }}
+                    >
+                      {tweet.chars}/280
+                    </motion.span>
+                    <motion.button
+                      className={styles.copyBtn}
+                      onClick={() => handleCopy(tweet.content, index)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.1 * index + 0.5 }}
+                    >
+                      {copiedIndex === index ? "Copied!" : "Copy"}
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
-      </WavyBackground>
+      </div>
     </section>
   );
 };

@@ -14,11 +14,25 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: #0a0a0f;
-  color: var(--text-primary);
-  font-family: "Inter", sans-serif;
+  justify-content: center;
+  color: white;
   overflow: hidden;
-  padding: 4rem 2rem;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/banners/aleksandr-popov-tRFehFzhlcc-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px) brightness(0.7);
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -51,8 +65,7 @@
   align-items: center;
   gap: 0.75rem;
   width: fit-content;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
@@ -144,7 +157,6 @@
 .subheadline {
   font-size: clamp(1.125rem, 2vw, 1.25rem);
   line-height: 1.7;
-  color: var(--text-secondary);
   max-width: 38rem;
   margin: 0;
 }
