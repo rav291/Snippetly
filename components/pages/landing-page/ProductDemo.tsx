@@ -119,7 +119,7 @@ const ProductDemo = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            From transcript to tweets in seconds — powered by AI
+            From transcript to tweets in seconds powered by AI
           </motion.p>
         </motion.div>
 

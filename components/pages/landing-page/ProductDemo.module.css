@@ -6,62 +6,10 @@
   padding: 4rem 2rem 6rem 2rem;
   position: relative;
   overflow: hidden;
-  background: 
-    /* Animated floating particles */ radial-gradient(
-      circle 3px at 20% 30%,
-      rgba(16, 185, 129, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle 2px at 80% 20%,
-      rgba(34, 197, 94, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle 4px at 40% 80%,
-      rgba(52, 211, 153, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle 2px at 70% 70%,
-      rgba(16, 255, 168, 0.4) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle 3px at 10% 60%,
-      rgba(5, 150, 105, 0.3) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle 2px at 90% 40%,
-      rgba(16, 185, 129, 0.3) 0%,
-      transparent 50%
-    ),
-    /* Mesh gradient overlay */
-      radial-gradient(
-        ellipse 800px 600px at 50% -20%,
-        rgba(16, 185, 129, 0.08) 0%,
-        transparent 60%
-      ),
-    radial-gradient(
-      ellipse 600px 400px at 80% 120%,
-      rgba(5, 150, 105, 0.06) 0%,
-      transparent 60%
-    ),
-    /* Base sophisticated gradient */
-      linear-gradient(
-        135deg,
-        rgb(2, 6, 23) 0%,
-        rgb(1, 31, 23) 25%,
-        rgb(3, 42, 32) 50%,
-        rgb(1, 31, 23) 75%,
-        rgb(2, 6, 23) 100%
-      );
-
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%,
-    100% 100%, 100% 100%, 100% 100%, 100% 100%;
-
-  animation: backgroundShift 20s ease-in-out infinite;
+  background-image: url("/banners/bg-gradient-1.jpg");
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(10px) brightness(0.7);
 }
 
 @keyframes backgroundShift {
@@ -205,58 +153,58 @@
 .header::before {
   content: "";
   position: absolute;
-  top: -2rem;
+  top: -0.8rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
+  width: 10%;
+  height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(16, 185, 129, 0.6),
+    rgba(0, 0, 0, 0.6),
     transparent
   );
   border-radius: 2px;
 }
 
 .title {
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: clamp(3rem, 3vw, 4.5rem);
   font-weight: 800;
-  background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 50%, #10b981 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 50%, #ffffff 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0 0 1.5rem 0;
   letter-spacing: -0.04em;
-  line-height: 1.1;
+  line-height: 1.2;
   position: relative;
 }
 
 .title::after {
   content: "";
   position: absolute;
-  bottom: -0.5rem;
+  bottom: -0.8rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 5%;
   height: 2px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(16, 185, 129, 0.8),
+    rgba(6, 36, 26, 0.8),
     transparent
   );
   border-radius: 1px;
 }
 
 .subtitle {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  color: rgba(156, 163, 175, 0.9);
+  font-size: clamp(1.125rem, 1vw, 1.5rem);
+  /* color: rgba(156, 163, 175, 0.9); */
   margin: 0;
   font-weight: 400;
   line-height: 1.6;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .demoGrid {

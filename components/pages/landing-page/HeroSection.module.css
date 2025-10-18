@@ -37,7 +37,7 @@
 
 .container {
   max-width: 88rem;
-  margin: 0 auto;
+  margin: 3rem auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 4rem;
@@ -95,7 +95,7 @@
 .headline {
   font-size: clamp(2.5rem, 6vw, 4.2rem);
   font-weight: 900;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.03em;
   color: var(--text-primary);
   margin: 0;
@@ -133,7 +133,6 @@
 
 .headlineAccent {
   display: block;
-  margin-top: 0.5rem;
   background: linear-gradient(
     135deg,
     var(--accent) 0%,
@@ -210,9 +209,9 @@
 /* CTA Group */
 .ctaGroup {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem
 }
 
 .primaryBtn {
@@ -280,8 +279,93 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  border: 2px solid var(--bg-dark);
   margin-left: -0.75rem;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #ffffff, #e8e8e8);
+  transition: 
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.3s ease;
+}
+
+/* Gradient border with shine */
+.avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 2px; /* thickness of the border */
+  /* background: linear-gradient(
+    135deg,
+    #4af3ff,
+    #0070f3,
+    #9b72ff,
+    #ff6ec7
+  ); */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Subtle shine reflection */
+.avatar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+}
+
+/* Animate shine on hover */
+.avatar:hover::before {
+  animation: shine 1s forwards;
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  100% {
+    left: 125%;
+  }
+}
+
+/* Hover elevation + border glow */
+.avatar:hover {
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.05);
+}
+
+.avatar:hover::after {
+  opacity: 1;
+  /* background: linear-gradient(
+    135deg,
+    #7fffd4,
+    #00bfff,
+    #9b72ff,
+    #ff66b2
+  ); */
+}
+
+/* Focus ring for accessibility */
+.avatar:focus-visible {
+  outline: 2px solid #0070f3;
+  outline-offset: 3px;
 }
 
 .avatar:first-child {

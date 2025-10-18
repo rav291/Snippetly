@@ -24,7 +24,7 @@ const HeroSection = () => {
         {/* Left Content */}
         <div className={styles.content}>
           {/* Eyebrow */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -32,7 +32,7 @@ const HeroSection = () => {
           >
             <div className={styles.eyebrowDot} />
             <span>The content treadmill ends here</span>
-          </motion.div>
+          </motion.div> */}
 
           {/* Main Headline */}
           <motion.h1
