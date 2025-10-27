@@ -13,7 +13,33 @@ const DEMO_TEXT =
 const ProductDemo = () => {
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [tweets, setTweets] = useState<GeneratedTweet[]>([]);
+  const [tweets, setTweets] = useState<GeneratedTweet[]>([
+    {
+      "id": 0,
+      "content": "Ever stared at a blank screen, wondering where to even begin? That's the developer's journey. It's not about perfection from the start, but about taking that first small step. What's your go-to trick for breaking through initial development paralysis?",
+      "chars": 251
+    },
+    {
+      "id": 1,
+      "content": "The best code isn't always the most complex; it's the most readable and maintainable. Think about your future self (or your teammates!) when you're writing. Simple elegance often trumps intricate genius in the long run. What's your golden rule for clean code?",
+      "chars": 259
+    },
+    {
+      "id": 2,
+      "content": "Remember that 'aha!' moment when a complex concept finally clicks? That's the fuel that keeps us going as developers. Share your most recent 'aha!' experience. Big or small, those breakthroughs are what make the grind worthwhile.",
+      "chars": 229
+    },
+    {
+      "id": 3,
+      "content": "Debugging: the art of being a detective in your own code. Sometimes it feels like you're searching for a needle in a haystack, only to find the haystack was actually a single misplaced semicolon. What's the most bizarre bug you've ever tracked down?",
+      "chars": 249
+    },
+    {
+      "id": 4,
+      "content": "Coding isn't just about syntax; it's about problem-solving, logical thinking, and continuous learning. Every line written is a mini-challenge overcome. What's one skill you've gained from coding that surprised you in its applicability outside of dev work?",
+      "chars": 255
+    }
+  ]);
   const [error, setError] = useState<string | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -31,24 +57,26 @@ const ProductDemo = () => {
     setError(null);
 
     try {
-      const res = await fetch("/api/generate-tweets", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: inputText }),
-      });
+      // const res = await fetch("/api/generate-tweets", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ text: inputText }),
+      // });
 
-      if (!res.ok) throw new Error("Failed to generate tweets");
-      const response = await res.json();
+      // if (!res.ok) throw new Error("Failed to generate tweets");
+      // const response = await res.json();
 
-      const generatedTweets = response?.data.map(
-        (item: any, index: number) => ({
-          id: index,
-          content: item.tweet,
-          chars: item.tweet.length,
-        })
-      );
+      // const generatedTweets = response?.data.map(
+      //   (item: any, index: number) => ({
+      //     id: index,
+      //     content: item.tweet,
+      //     chars: item.tweet.length,
+      //   })
+      // );
 
-      setTweets(generatedTweets ?? []);
+      // console.log("generatedTweets", generatedTweets)
+
+      // setTweets(generatedTweets ?? []);
     } catch (e: any) {
       setError(e?.message || "Something went wrong");
     } finally {
@@ -85,7 +113,7 @@ const ProductDemo = () => {
       await navigator.clipboard.writeText(content);
       setCopiedIndex(index);
       setTimeout(() => setCopiedIndex(null), 2000);
-    } catch {}
+    } catch { }
   };
 
   return (

@@ -26,7 +26,7 @@
   background-image: url("/banners/aleksandr-popov-tRFehFzhlcc-unsplash.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(10px) brightness(0.7);
+  filter: blur(20px) brightness(0.6);
   z-index: 0;
 }
 
