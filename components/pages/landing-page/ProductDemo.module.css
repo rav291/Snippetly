@@ -502,21 +502,149 @@
   height: 1.5rem;
 }
 
-.tweetsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-  padding: 3rem;
+/* Tweets Section Container */
+.tweetsSection {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #e5e7eb 50%, #ffffff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Carousel Wrapper */
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.carouselContainer {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 2rem 3rem;
+  position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselContainer {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.carouselContainer {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Navigation Buttons */
+.carouselButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: rgba(16, 185, 129, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.carouselButton:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #10b981;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+}
+
+.carouselButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carouselButtonLeft {
+  left: -24px;
+}
+
+.carouselButtonRight {
+  right: -24px;
+}
+
+@media (max-width: 1200px) {
+  .carouselButtonLeft {
+    left: 4px;
+  }
+  .carouselButtonRight {
+    right: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carouselButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carouselButtonLeft {
+    left: 0;
+  }
+  .carouselButtonRight {
+    right: 0;
+  }
 }
 
 .tweetCard {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(16, 185, 129, 0.12);
-  border-radius: 1.25rem;
-  padding: 2rem;
+  flex: 0 0 calc((100% - 3rem) / 1.5);
+  min-width: 600px;
+  max-width: 700px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -524,6 +652,9 @@
   overflow: hidden;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(16, 185, 129, 0.1);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
 }
 
 .tweetCard::before {
@@ -624,12 +755,42 @@
   opacity: 1;
 }
 
+/* Tweet Header with Twitter Icon */
+.tweetHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.twitterIcon {
+  width: 24px;
+  height: 24px;
+  color: rgba(16, 185, 129, 0.8);
+  flex-shrink: 0;
+}
+
+.tweetBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(16, 185, 129, 0.9);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .tweetText {
   font-size: 1rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.95);
   margin: 0 0 1.5rem;
   font-weight: 400;
+  flex-grow: 1;
 }
 
 .tweetFooter {
@@ -644,9 +805,11 @@
   color: rgba(107, 114, 128, 0.8);
   font-weight: 500;
   background: rgba(107, 114, 128, 0.1);
-  padding: 0.25rem 0.75rem;
+  padding: 0.375rem 0.875rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(107, 114, 128, 0.15);
+  display: flex;
+  align-items: center;
 }
 
 .copyBtn {
@@ -662,6 +825,9 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .copyBtn::before {
@@ -697,11 +863,21 @@
 }
 
 /* Enhanced responsive design */
+@media (max-width: 1400px) {
+  .tweetsSection {
+    padding: 2rem 0;
+  }
+
+  .tweetCard {
+    min-width: 550px;
+    max-width: 650px;
+  }
+}
+
 @media (max-width: 1200px) {
-  .tweetsContainer {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
+  .tweetCard {
+    min-width: 480px;
+    max-width: 580px;
   }
 }
 
@@ -728,10 +904,18 @@
     flex-wrap: wrap;
   }
 
-  .tweetsContainer {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem;
+  .tweetsSection {
+    padding: 1.5rem 0;
+  }
+
+  .carouselContainer {
+    padding: 0.75rem 1rem;
+  }
+
+  .tweetCard {
+    min-width: 400px;
+    max-width: 480px;
+    padding: 2rem;
   }
 
   .arrow {
@@ -769,14 +953,25 @@
     margin-top: 1.5rem;
   }
 
-  .tweetsContainer {
-    padding: 1rem;
+  .tweetsSection {
+    padding: 1rem 0;
+  }
+
+  .carouselContainer {
+    padding: 0.5rem;
     gap: 1rem;
   }
 
   .tweetCard {
+    min-width: 320px;
+    max-width: 380px;
     padding: 1.5rem;
     border-radius: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .tweetText {
@@ -815,6 +1010,13 @@
   }
 
   .tweetCard {
+    min-width: 280px;
+    max-width: 340px;
     padding: 1.25rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 }
