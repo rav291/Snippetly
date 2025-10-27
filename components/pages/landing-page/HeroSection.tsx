@@ -112,7 +112,7 @@ const HeroSection = () => {
             className={styles.ctaGroup}
           >
             <button onClick={handleGenerate} className={styles.primaryBtn}>
-              <span className="text-white">Start free — no card required</span>
+              <span className="text-white">Start free, no card required</span>
               <ArrowRight className={styles.btnIcon} />
             </button>
             <div className={styles.socialProof}>
